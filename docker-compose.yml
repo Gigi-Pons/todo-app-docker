@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build: ./todoApp/todo-app
-    container_name: todo-backend
+    container_name: todo-backend2
     ports:
       - "8080:8080"
     environment:
@@ -16,7 +16,7 @@ services:
 
   frontend:
     build: ./todoAppFront/todoAppFrontend   
-    container_name: todo-frontend
+    container_name: todo-frontend2
     ports:
       - "3001:80"
     depends_on:
@@ -24,7 +24,7 @@ services:
 
   db:
     image: mysql:8
-    container_name: mysql-db
+    container_name: mysql-db2
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: todo_db
