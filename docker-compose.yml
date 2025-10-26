@@ -1,3 +1,47 @@
+# version: '3.8'
+
+# services:
+#   backend:
+#     build: ./todoApp/todo-app
+#     container_name: todo-backend2
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/todo_db
+#       - SPRING_DATASOURCE_USERNAME=root
+#       - SPRING_DATASOURCE_PASSWORD=root
+#     depends_on:
+#       db:
+#         condition: service_healthy   
+
+#   frontend:
+#     build: ./todoAppFront/todoAppFrontend   
+#     container_name: todo-frontend2
+#     ports:
+#       - "3001:80"
+#     depends_on:
+#       - backend
+
+#   db:
+#     image: mysql:8
+#     container_name: mysql-db2
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root
+#       MYSQL_DATABASE: todo_db
+#     volumes:
+#       - db_data:/var/lib/mysql
+#     ports:
+#       - "3307:3306"
+#     healthcheck:                      
+#       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 10
+
+# volumes:
+#   db_data:
+
+
 version: '3.8'
 
 services:
@@ -5,17 +49,19 @@ services:
     build: ./todoApp/todo-app
     container_name: todo-backend2
     ports:
-      - "8080:8080"
+      - "${PORT}:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/todo_db
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO}
     depends_on:
       db:
         condition: service_healthy   
 
   frontend:
-    build: ./todoAppFront/todoAppFrontend   
+    build: ./todoAppFront/todoAppFrontend
     container_name: todo-frontend2
     ports:
       - "3001:80"
@@ -26,13 +72,13 @@ services:
     image: mysql:8
     container_name: mysql-db2
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: todo_db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - db_data:/var/lib/mysql
     ports:
       - "3307:3306"
-    healthcheck:                      
+    healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       timeout: 5s
