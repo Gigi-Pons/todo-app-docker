@@ -71,11 +71,16 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
-		</dependency>
+		</dependency> -->
 
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+			<version>11.7.1</version> <!-- or your desired Flyway version 10.20.1+ -->
+		</dependency>
 	</dependencies>
 
 	<build>
