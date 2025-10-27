@@ -5,7 +5,7 @@ import axios from "axios";
 //managing states, talkin got the backend API and rendering the to-do list UI
 function Task() {
 
-    const API_BASE_URL = process.env.REACT_APP_API_URL;
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
 
     //State variables
     //tasks is an array that stores all tasks fetched from the backend
