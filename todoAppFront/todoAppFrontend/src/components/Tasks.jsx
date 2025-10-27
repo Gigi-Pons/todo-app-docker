@@ -5,6 +5,8 @@ import axios from "axios";
 //managing states, talkin got the backend API and rendering the to-do list UI
 function Task() {
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
+
     //State variables
     //tasks is an array that stores all tasks fetched from the backend
     //newTask is a string that holds what the user types in the input box 
@@ -14,7 +16,8 @@ function Task() {
     //This effect runs once and populates the tasks array with data fetched from 
     //the backend
     useEffect(() => {
-        axios.get("http://localhost:8080/tasks/getAllTasks")
+        // axios.get("http://localhost:8080/tasks/getAllTasks")
+        axios.get(`${API_BASE_URL}/tasks/getAllTasks`)
             .then(res => {
                 setTasks(res.data)
             })
@@ -35,7 +38,7 @@ function Task() {
   function addTask() {
     if (newTask.trim() !== "") {
       axios
-        .post("http://localhost:8080/tasks/add", {
+        .post(`${API_BASE_URL}/tasks/add`, {
           task: newTask,
           completed: false,
         })
@@ -53,7 +56,7 @@ function Task() {
   //the id that was deleted out of the new array
   function deleteTask(id) {
     axios
-      .delete(`http://localhost:8080/tasks/delete/${id}`)
+      .delete(`${API_BASE_URL}/tasks/delete/${id}`)
       .then(() => setTasks(tasks.filter(t => t.id !== id)))
       .catch(err => console.error("Error deleting task:", err));
   }
@@ -64,7 +67,7 @@ function Task() {
   //array using map and updates the state immutably
   function markComplete(id) {
     axios
-      .patch(`http://localhost:8080/tasks/${id}/completed`)
+      .patch(`${API_BASE_URL}/tasks/${id}/completed`)
       .then(res =>
         setTasks(tasks.map(t => (t.id === id ? { ...t, completed: true } : t)))
       )
