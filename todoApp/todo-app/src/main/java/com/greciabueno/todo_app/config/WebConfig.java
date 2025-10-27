@@ -14,7 +14,7 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "https://todo-frontend.onrender.com", // ✅ Render frontend
+                                "https://todo-app-docker-1.onrender.com", // ✅ Render frontend
                                 "http://localhost:3001"              // ✅ Local React dev server
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
